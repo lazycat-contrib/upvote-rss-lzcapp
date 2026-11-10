@@ -13,7 +13,7 @@
 |------|----|
 | 包名 | `community.lazycat.app.upvote-rss` |
 | 上游镜像 | `ghcr.io/johnwarne/upvote-rss`（镜像模式） |
-| 运行时加速 | 当前为 `ghcr.dockerproxy.net`（仓库变量 `LAZYCAT_GHCR_MIRROR` 指定；默认 `ghcr.1ms.run` 故障时的替代） |
+| 运行时加速 | `ghcr.1ms.run`（Action 默认 GHCR 加速地址） |
 | 版本来源 | 上游 `v*.*.*` 标签，去 `v` 前缀后作为包版本 |
 | 容器端口 | 80 |
 | 持久化 | `/lzcapp/var/cache`（缓存正文/AI 摘要）、`/lzcapp/var/logs` |
@@ -48,14 +48,15 @@
 
 ### GHCR 加速地址
 
-`ghcr.1ms.run` 在首次发布时整体不可用（所有 GHCR 镜像返回
-`上游服务暂不可用`），因此仓库变量 `LAZYCAT_GHCR_MIRROR` 临时指向
-`ghcr.dockerproxy.net`，生成到 Manifest 里的镜像地址也随之变化。
+首发当天 `ghcr.1ms.run` 整体不可用（所有 GHCR 镜像返回
+`上游服务暂不可用`），曾用仓库变量 `LAZYCAT_GHCR_MIRROR` 临时指向
+`ghcr.dockerproxy.net`。该变量已删除，加速地址回到默认的
+`ghcr.1ms.run`，镜像摘要与上游一致。
 
-待 `ghcr.1ms.run` 恢复后：
+以后再遇到加速站故障，处理方式相同：
 
-1. 删除仓库变量 `LAZYCAT_GHCR_MIRROR`
-2. 手动把 `lzc-manifest.yml` 的 `image:` 改回 `ghcr.1ms.run/...`（同一 tag）
+1. 设置仓库变量 `LAZYCAT_GHCR_MIRROR`（GHCR）或 `LAZYCAT_DOCKER_MIRROR`（Docker Hub）
+2. 手动把 `lzc-manifest.yml` 的 `image:` 改成新地址（同一 tag）
 3. 重新触发一次工作流校验摘要
 
 注意：镜像摘要没变时，Action 不会仅因为加速地址变化而改写运行时地址，
