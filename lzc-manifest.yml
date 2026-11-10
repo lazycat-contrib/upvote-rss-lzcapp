@@ -10,8 +10,8 @@ application:
       backend: http://upvote-rss:80/
 services:
   upvote-rss:
-    # upstream: ghcr.io/johnwarne/upvote-rss:1.8.2
-    image: ghcr.1ms.run/johnwarne/upvote-rss:1.8.2
+    # upstream: ghcr.io/johnwarne/upvote-rss:v1.8.2
+    image: ghcr.dockerproxy.net/johnwarne/upvote-rss:v1.8.2
     environment:
       - TZ=Asia/Shanghai
       - MAX_EXECUTION_TIME=300
