@@ -2,3 +2,4 @@ dist/
 .lazycat-build/
 *.lpk
 .DS_Store
+.lzc-cli-build*/
