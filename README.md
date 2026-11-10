@@ -53,6 +53,11 @@
 `ghcr.dockerproxy.net`。该变量已删除，加速地址回到默认的
 `ghcr.1ms.run`，镜像摘要与上游一致。
 
+商店里现有的 1.8.2 资产是在抖动窗口里构建的，里面仍指
+`ghcr.dockerproxy.net`（该地址目前可用，且与上游摘要一致）；运行时地址属于
+LPK 内容，商店不允许覆盖已发布版本，所以这一版保持原样，下一个上游版本
+开始就是 `ghcr.1ms.run`。
+
 以后再遇到加速站故障，处理方式相同：
 
 1. 设置仓库变量 `LAZYCAT_GHCR_MIRROR`（GHCR）或 `LAZYCAT_DOCKER_MIRROR`（Docker Hub）
